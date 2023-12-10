@@ -41,6 +41,7 @@ kotlin {
 }
 
 
+// https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Native_distributions_and_local_execution/README.md#basic-usage
 compose.desktop {
     application {
         mainClass = "MainKt"
@@ -52,6 +53,9 @@ compose.desktop {
             windows {
                 iconFile.set(project.file("../icons/application.ico"))
                 upgradeUuid = UUID.randomUUID().toString()
+                perUserInstall = true
+                menu = true
+                shortcut = true
             }
             linux {
                 iconFile.set(project.file("../icons/application.png"))
@@ -60,6 +64,10 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ComposeMultiplatformProject"
             packageVersion = "1.0.0"
+            description = "Compose Example App"
+            copyright = "© 2023 icuxika. All rights reserved."
+            vendor = "My Manufacturer Name"
+            licenseFile.set(project.file("../License.rtf"))
         }
     }
 }
