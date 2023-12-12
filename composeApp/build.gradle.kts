@@ -52,7 +52,7 @@ compose.desktop {
             }
             windows {
                 iconFile.set(project.file("../icons/application.ico"))
-                upgradeUuid = UUID.randomUUID().toString()
+                upgradeUuid = "299447C2-0241-453B-AB83-E1E53F3D6783"
                 perUserInstall = true
                 menu = true
                 shortcut = true
