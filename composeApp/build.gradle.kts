@@ -30,12 +30,16 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(compose.desktop.uiTestJUnit4)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.desktop.components.splitPane)
         }
     }
 }
