@@ -1,4 +1,3 @@
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,20 +5,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Chat
-import androidx.compose.material.icons.rounded.DarkMode
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.LightMode
-import androidx.compose.material3.*
+import androidx.compose.material.icons.rounded.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import pages.PageType
 import pages.chat.ChatApp
+import pages.gridCanvas.GridCanvasApp
 import pages.index.Index
 import ui.theme.AppTheme
 
@@ -33,7 +33,7 @@ fun App() {
         Box(Modifier.fillMaxSize()) {
             Row {
                 Column(
-                    Modifier.fillMaxHeight().width(48.dp).background(MaterialTheme.colorScheme.secondary),
+                    Modifier.fillMaxHeight().zIndex(999f).width(48.dp).background(MaterialTheme.colorScheme.secondary),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
@@ -62,11 +62,12 @@ fun App() {
 @Composable
 fun SideBar(pageType: MutableState<PageType>) {
     LazyColumn(Modifier.fillMaxWidth()) {
-        itemsIndexed(arrayListOf(PageType.INDEX, PageType.CHAT)) { _, item ->
+        itemsIndexed(arrayListOf(PageType.INDEX, PageType.CHAT, PageType.GRID_CANVAS)) { _, item ->
             IconButton(onClick = { pageType.value = item }) {
                 when (item) {
                     PageType.INDEX -> Icon(Icons.Rounded.Home, item.name)
                     PageType.CHAT -> Icon(Icons.Rounded.Chat, item.name)
+                    PageType.GRID_CANVAS -> Icon(Icons.Rounded.Draw, item.name)
                 }
             }
         }
@@ -79,6 +80,7 @@ fun Content(pageType: MutableState<PageType>) {
         when (type.value) {
             PageType.INDEX -> Index()
             PageType.CHAT -> ChatApp()
+            PageType.GRID_CANVAS -> GridCanvasApp()
         }
     }
 }
