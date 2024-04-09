@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import composemultiplatformproject.composeapp.generated.resources.Res
+import composemultiplatformproject.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import pages.PageType
@@ -37,7 +39,7 @@ fun App() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Image(
-                        painterResource("compose-multiplatform.xml"),
+                        painterResource(Res.drawable.compose_multiplatform),
                         null
                     )
                     if (!isSystemInDarkTheme) {
