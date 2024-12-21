@@ -1,25 +1,29 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-
-    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
-    @OptIn(ExperimentalWasmDsl::class)
+    jvm("desktop")
+
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "composeApp"
         browser {
+            val rootDirPath = project.rootDir.path
+            val projectDirPath = project.projectDir.path
             commonWebpackConfig {
                 outputFileName = "composeApp.js"
                 devServer = (devServer ?: KotlinWebpackConfig.DevServer()).apply {
                     static = (static ?: mutableListOf()).apply {
                         // Serve sources to debug inside browser
-                        add(project.projectDir.path)
+                        add(rootDirPath)
+                        add(projectDirPath)
                     }
                 }
             }
@@ -27,7 +31,6 @@ kotlin {
         binaries.executable()
     }
 
-    jvm("desktop")
 
     sourceSets {
         val desktopMain by getting
@@ -38,9 +41,10 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtime.compose)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -51,8 +55,7 @@ kotlin {
     }
 }
 
-
-// https://github.com/JetBrains/compose-multiplatform/blob/master/tutorials/Native_distributions_and_local_execution/README.md#basic-usage
+// https://github.com/JetBrains/compose-multiplatform/blob/v1.7.3/tutorials/Native_distributions_and_local_execution/README.md#basic-usage
 compose.desktop {
     application {
         mainClass = "MainKt"
@@ -81,10 +84,6 @@ compose.desktop {
             licenseFile.set(project.file("../License.rtf"))
         }
     }
-}
-
-compose.experimental {
-    web.application {}
 }
 
 tasks.withType<JavaCompile> {

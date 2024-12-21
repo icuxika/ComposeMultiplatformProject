@@ -17,7 +17,6 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-@OptIn(ExperimentalResourceApi::class)
 fun Index() {
     var greetingText by remember { mutableStateOf("Hello World!") }
     var showImage by remember { mutableStateOf(false) }

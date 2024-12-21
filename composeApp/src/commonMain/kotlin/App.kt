@@ -5,7 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.automirrored.rounded.Chat
+import androidx.compose.material.icons.rounded.DarkMode
+import androidx.compose.material.icons.rounded.Draw
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -17,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import composemultiplatformproject.composeapp.generated.resources.Res
 import composemultiplatformproject.composeapp.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import pages.PageType
 import pages.chat.ChatApp
@@ -25,7 +28,6 @@ import pages.gridCanvas.GridCanvasApp
 import pages.index.Index
 import ui.theme.AppTheme
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
     var isSystemInDarkTheme by remember { mutableStateOf(false) }
@@ -68,7 +70,7 @@ fun SideBar(pageType: MutableState<PageType>) {
             IconButton(onClick = { pageType.value = item }) {
                 when (item) {
                     PageType.INDEX -> Icon(Icons.Rounded.Home, item.name)
-                    PageType.CHAT -> Icon(Icons.Rounded.Chat, item.name)
+                    PageType.CHAT -> Icon(Icons.AutoMirrored.Rounded.Chat, item.name)
                     PageType.GRID_CANVAS -> Icon(Icons.Rounded.Draw, item.name)
                 }
             }

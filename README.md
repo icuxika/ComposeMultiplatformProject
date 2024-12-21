@@ -17,7 +17,7 @@
 ```
 - Web (`.\composeApp\build\dist\wasmJs\productionExecutable\`)
 ```
-.\gradlew.bat wasmJsBrowserProductionWebpack
+.\gradlew.bat wasmJsBrowserDistribution
 ```
 
 ## 主题
